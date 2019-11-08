@@ -9,4 +9,5 @@ class CategoriesController < ApplicationController
         category = Category.find(params[:id])
         render json: category
     end 
+
 end
