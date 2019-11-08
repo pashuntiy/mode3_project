@@ -9,3 +9,16 @@
 
 guns = Category.create(name: 'Guns')
 shotgun = Product.create(name: 'Shotgun', description: "Srapnel", image: 'some url', origin: 'Morocco', cost: 100, average_raiting: 0, category_id: guns.id)
+
+
+organs = Category.create(name: "Organs")
+
+
+
+
+drugs = Category.create(name: "Drugs")
+
+
+
+
+animals = Category.create(name: "Animals")
