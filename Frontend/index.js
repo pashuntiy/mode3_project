@@ -1,10 +1,13 @@
 let categoriesUl = document.querySelector('#categories')
 let productsUl = document.querySelector('#products')
 let productDiv = document.querySelector('#display-product')
+let newProductBTN = document.getElementById("new-product")
+let addProductDIV = document.getElementById("add-product")
 
 fetch('http://localhost:3000/categories')
 .then(r => r.json())
 .then(respond => {
+
   respond.forEach(item => {
     let li = document.createElement('LI')
     li.innerText = item.name
@@ -12,6 +15,7 @@ fetch('http://localhost:3000/categories')
     li.addEventListener('click', event => {renderProductsList(event)})
     categoriesUl.append(li)
   })
+  addNewProduct(respond)
 })
 
 function renderProductsList(event){
