@@ -115,17 +115,30 @@ function renderProduct(event){
       let reviewLi = document.createElement('li')
       let reviewText = document.createElement('p')
       let reviewAuthor = document.createElement('p')
+      let deleteButton = document.createElement('dutton')
 
       reviewText.innerText = review.text
       reviewAuthor.innerText = review.author
+      deleteButton.innerText = 'X'
+      deleteButton.setAttribute('id', review.id)
+      deleteButton.addEventListener('click', event => {deleteReview(event)})
 
-      reviewLi.append(reviewText, reviewAuthor)
+      reviewLi.append(reviewText, reviewAuthor, deleteButton)
       reviewsUl.append(reviewLi)
     })
 
     productDiv.append(h1, p, img, pCost, pOrigin, pRating, form, reviewsUl)
   })
 }
+
+function deleteReview(event){
+  fetch(`http://localhost:3000/reviews/${event.target.id}`, {
+    method: 'DELETE'
+  })
+  let button = document.getElementById(event.target.id)
+  button.parentElement.remove()
+}
+
 
 function submitReview(event){
   event.preventDefault()
@@ -145,10 +158,20 @@ function submitReview(event){
   .then(respond => {
     let productDiv = document.querySelector('#display-product')
     let reviewsUl = productDiv.querySelector('#reviews-list')
-    let newReview = document.createElement('span')
+    let newReviewLi = document.createElement('li')
+    let newReviewText = document.createElement('p')
+    let newReviewAuthor = document.createElement('p')
+    let deleteButton = document.createElement('dutton')
 
-    newReview.innerText = respond.text
-    reviewsUl.append(newReview)
+    newReviewText.innerText = respond.text
+    newReviewAuthor.innerText = respond.author
+
+    deleteButton.innerText = 'X'
+    deleteButton.setAttribute('id', respond.id)
+    deleteButton.addEventListener('click', event => {deleteReview(event)})
+
+    newReviewLi.append(newReviewText, newReviewAuthor, deleteButton)
+    reviewsUl.append(newReviewLi)
     productDiv.append(reviewsUl)
   })
 
