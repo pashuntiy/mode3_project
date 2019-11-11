@@ -7,13 +7,13 @@ let addProductDIV = document.getElementById("add-product")
 fetch('http://localhost:3000/categories')
 .then(r => r.json())
 .then(respond => {
-  
+
   respond.forEach(item => {
     let li = document.createElement('LI')
     li.innerText = item.name
     li.setAttribute('data-id' , item.id)
     li.addEventListener('click', event => {renderProductsList(event)})
-    categoriesUl.append(li)   
+    categoriesUl.append(li)
   })
   addNewProduct(respond)
 })
@@ -134,8 +134,53 @@ function renderProduct(event){
   })
 }
 
+function deleteReview(event){
+  fetch(`http://localhost:3000/reviews/${event.target.id}`, {
+    method: 'DELETE'
+  })
+  let button = document.getElementById(event.target.id)
+  button.parentElement.remove()
+}
+
+function submitReview(event){
+  event.preventDefault()
+  fetch(`http://localhost:3000/reviews/`, {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json'
+    },
+    body: JSON.stringify({
+      author: event.target['author'].value,
+      text: event.target['review'].value,
+      rating: event.target['rating'].value,
+      product_id: event.target.id
+    })
+  })
+  .then(r => r.json())
+  .then(respond => {
+    let productDiv = document.querySelector('#display-product')
+    let reviewsUl = productDiv.querySelector('#reviews-list')
+    let newReviewLi = document.createElement('li')
+    let newReviewText = document.createElement('p')
+    let newReviewAuthor = document.createElement('p')
+    let deleteButton = document.createElement('dutton')
+
+    newReviewText.innerText = respond.text
+    newReviewAuthor.innerText = respond.author
+
+    deleteButton.innerText = 'X'
+    deleteButton.setAttribute('id', respond.id)
+    deleteButton.addEventListener('click', event => {deleteReview(event)})
+
+    newReviewLi.append(newReviewText, newReviewAuthor, deleteButton)
+    reviewsUl.append(newReviewLi)
+    productDiv.append(reviewsUl)
+  })
+
+}
+
 function addNewProduct(respond){
-  
+
   newProductBTN.addEventListener("click", () => {
     let newProductFORM = document.createElement("form")
     // name
@@ -176,7 +221,7 @@ function addNewProduct(respond){
     respond.forEach((category) => {
       let categoryOption = document.createElement("option")
       categoryOption.innerText = category.name
-      categoryOption.id = category.id 
+      categoryOption.id = category.id
       categorySelect.append(categoryOption)
     })
     // submit
@@ -194,7 +239,7 @@ function addNewProduct(respond){
       e.preventDefault()
       fetch(`http://localhost:3000/products`, {
         method:'POST',
-        headers: { 
+        headers: {
           'Content-type': 'application/json'
         },
         body: JSON.stringify({
