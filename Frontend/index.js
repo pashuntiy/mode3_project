@@ -18,7 +18,6 @@ fetch('http://localhost:3000/categories')
   addNewProduct(respond)
 })
 
-
 function renderProductsList(event){
   fetch(`http://localhost:3000/categories/${event.target.dataset.id}`)
   .then(r => r.json())
@@ -131,7 +130,6 @@ function renderProduct(event){
       reviewLi.append(reviewText, reviewAuthor, deleteButton)
       reviewsUl.append(reviewLi)
     })
-
     productDiv.append(h1, p, img, pCost, pOrigin, pRating, form, reviewsUl)
   })
 }
@@ -205,13 +203,9 @@ function addNewProduct(respond){
           description: e.target.description.value,
           origin: e.target.origin.value,
           cost: e.target.cost.value,
-          category_id: e.target.selectCategory.selectedIndex + 1
-
-          
+          category_id: e.target.selectCategory.selectedIndex + 1 
         })
       })
-      debugger
     })
  })
 }
-// debugger
