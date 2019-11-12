@@ -1,0 +1,13 @@
+li {
+  list-style-type:none;
+  margin: 1%;
+
+}
+
+#products-menue{
+  display: flex;
+}
+
+#display-product{
+
+}
