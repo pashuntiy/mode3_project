@@ -155,6 +155,9 @@ function deleteReview(event){
     method: 'DELETE'
   })
   let button = document.getElementById(event.target.id)
+  let pAverageRating = productDiv.querySelector('#average_rating')
+  // pAverageRating.innerText =
+  debugger
   button.parentElement.remove()
 }
 
@@ -174,6 +177,7 @@ function submitReview(event){
   })
   .then(r => r.json())
   .then(respond => {
+
     let productDiv = document.querySelector('#display-product')
     let reviewsUl = productDiv.querySelector('#reviews-list')
 
@@ -193,6 +197,11 @@ function submitReview(event){
     reviewsUl.append(newReviewLi)
     productDiv.append(reviewsUl)
 
+    let lengthUl = reviewsUl.childElementCount
+    let pAverageRating = productDiv.querySelector('#average_rating')
+    pAverageRating.innerText = pAverageRating.innerText.replace(/\D/g,'')
+    let newAverageRating = (respond.rating / lengthUl) + parseFloat(pAverageRating.innerText)
+    pAverageRating.innerText = `Average rating: ${newAverageRating}`
   })
 }
 
@@ -252,7 +261,7 @@ function addNewProduct(respond){
     addProductDIV.append(newProductFORM)
 
     newProductFORM.addEventListener("submit", (e) => {
-      debugger
+      // debugger
       e.preventDefault()
       fetch(`http://localhost:3000/products`, {
         method:'POST',
@@ -268,7 +277,7 @@ function addNewProduct(respond){
           category_id: e.target.selectCategory.selectedIndex + 1
         })
       })
-      debugger
+      // debugger
     })
  })
 }
