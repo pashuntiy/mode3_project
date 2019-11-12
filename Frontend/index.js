@@ -207,6 +207,8 @@ function submitReview(event){
 function addNewProduct(respond){
 
   newProductBTN.addEventListener("click", () => {
+
+    addProductDIV.innerText = ""
     let newProductFORM = document.createElement("form")
     // name
     let nameLabel = document.createElement("label")
@@ -253,10 +255,24 @@ function addNewProduct(respond){
     let submitInput = document.createElement("input")
     submitInput.value = "ADD TO THE DEEP WEB"
     submitInput.type = "submit"
+    
+    let breakArr = Array(12).fill(document.createElement("br"))
+     
+    let breakLine1 = document.createElement("br")
+    let breakLine2 = document.createElement("br")
+    let breakLine3 = document.createElement("br")
+    let breakLine4 = document.createElement("br")
+    let breakLine5 = document.createElement("br")
+    let breakLine6 = document.createElement("br")
+    let breakLine7 = document.createElement("br")
+    let breakLine8 = document.createElement("br")
+    let breakLine9 = document.createElement("br")
+    let breakLine10 = document.createElement("br")
+    let breakLine11 = document.createElement("br")
+    let breakLine12 = document.createElement("br")
+    
 
-    newProductBTN.remove()
-
-    newProductFORM.append(nameLabel, nameInput, imageLabel, imageInput, descLabel, descInput, originLabel, originInput, costLabel, costInput, categoryLabel, categorySelect, submitInput)
+    newProductFORM.append(nameLabel, breakLine1, nameInput, breakLine2, imageLabel, breakLine3, imageInput, breakLine4, descLabel, breakLine5, descInput, breakLine6, originLabel, breakLine7, originInput, breakLine8, costLabel, breakLine9, costInput, breakLine10, categoryLabel, breakLine11, categorySelect, breakLine12, submitInput)
     addProductDIV.append(newProductFORM)
 
     newProductFORM.addEventListener("submit", (e) => {
@@ -278,4 +294,30 @@ function addNewProduct(respond){
       })
     })
  })
+}
+
+// Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("new-product");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on the button, open the modal
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
 }
