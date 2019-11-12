@@ -32,7 +32,7 @@ animals = Category.create(name: "Animals")
 
 guns = Category.create(name: "Weaponry")
 
-Product.create(name: "Pixie Dust", description: "Will make you feel like a magical creature.", image: "http://vapordynamix.com/image/cache/data/products/vd-e-liquid/pixie-dust-97-600x600.jpg", origin: "Narnia", cost: ,2000 average_rating: 0, category_id: drugs.id)
+Product.create(name: "Pixie Dust", description: "Will make you feel like a magical creature.", image: "http://vapordynamix.com/image/cache/data/products/vd-e-liquid/pixie-dust-97-600x600.jpg", origin: "Narnia", cost: 2000, average_rating: 0, category_id: drugs.id)
 Product.create(name: "Candy Corn", description: "For when you are feeling spooky.", image: "https://images-na.ssl-images-amazon.com/images/I/71rly8%2BdOmL._SL1000_.jpg", origin: "Your Grandmother's Purse", cost: 2, average_rating: 0, category_id: drugs.id)
 Product.create(name: "Pumpkin Spice Coffee", description: "A Great pick me up in the morning", image: "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/delish-pumpkin-spice-latte-horizontal-1530373970.jpg", origin: "Starbucks", cost: 5, average_rating: 0, category_id: drugs.id)
 Product.create(name: "Pure Cane Sugar", description: "Sweetens the deal", image: "https://previews.123rf.com/images/gjohnstonphoto/gjohnstonphoto1803/gjohnstonphoto180300009/97393455-ground-up-pure-cane-sugar-on-a-wooden-spoon-with-the-more-course-sugar-in-the-background-.jpg", origin: "A jungle near you", cost: 8, average_rating: 0, category_id: drugs.id)

@@ -251,7 +251,7 @@ function addNewProduct(respond){
     })
     // submit
     let submitInput = document.createElement("input")
-    submitInput.value = "ADD TO THE BLACK MARKET"
+    submitInput.value = "ADD TO THE DEEP WEB"
     submitInput.type = "submit"
 
     newProductBTN.remove()
