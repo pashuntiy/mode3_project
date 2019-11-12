@@ -54,3 +54,11 @@ li {
 #add-product {
   width: 18%;
 }
+
+#product-form {
+  margin: auto;
+  
+}
+#welcome {
+  font-family: "Lucida Console";
+}

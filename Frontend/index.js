@@ -210,6 +210,7 @@ function addNewProduct(respond){
 
     addProductDIV.innerText = ""
     let newProductFORM = document.createElement("form")
+    newProductFORM.id = "product-form"
     // name
     let nameLabel = document.createElement("label")
     nameLabel.innerText = "Name:"
@@ -255,9 +256,7 @@ function addNewProduct(respond){
     let submitInput = document.createElement("input")
     submitInput.value = "ADD TO THE DEEP WEB"
     submitInput.type = "submit"
-    
-    let breakArr = Array(12).fill(document.createElement("br"))
-     
+         
     let breakLine1 = document.createElement("br")
     let breakLine2 = document.createElement("br")
     let breakLine3 = document.createElement("br")
