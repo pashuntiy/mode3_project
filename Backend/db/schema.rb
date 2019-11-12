@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 2019_11_08_162455) do
     t.string "image"
     t.string "origin"
     t.integer "cost"
-    t.integer "average_rating"
+    t.float "average_rating"
     t.bigint "category_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
