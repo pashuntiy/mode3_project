@@ -12,6 +12,7 @@ fetch('http://localhost:3000/categories')
     let li = document.createElement('LI')
     li.innerText = item.name
     li.setAttribute('data-id' , item.id)
+    li.setAttribute('class', 'btn btn-warning')
     li.addEventListener('click', event => {renderProductsList(event)})
     categoriesUl.append(li)
   })
@@ -26,16 +27,18 @@ function renderProductsList(event){
     while (productsUl.firstChild){
       productsUl.removeChild(productsUl.firstChild)
     }
-    // while (productDiv.firstChild){
-    //   productDiv.removeChild(productDiv.firstChild)
-    // }
+
+    while (addProductDIV.firstChild){
+      addProductDIV.removeChild(addProductDIV.firstChild)
+    }
 
     respond.products.forEach(product => {
-      let p = document.createElement('P')
-      p.innerText = product.name
-      p.setAttribute('data-id' , product.id)
-      p.addEventListener('click', event => {renderProduct(event)})
-      productsUl.append(p)
+      let li = document.createElement('li')
+      li.innerText = product.name
+      li.setAttribute('data-id' , product.id)
+      li.setAttribute('class', 'list-group-item')
+      li.addEventListener('click', event => {renderProduct(event)})
+      productsUl.append(li)
     })
   })
 }
@@ -61,7 +64,7 @@ function renderProduct(event){
     let reviewAuthorLabel = document.createElement('label')
     let reviewText = document.createElement('textarea')
     let reviewTextLabel = document.createElement('label')
-    let reviewAuthor = document.createElement('textarea')
+    let reviewAuthor = document.createElement('input')
 
     let reviewSubmit = document.createElement('input')
 
@@ -75,9 +78,18 @@ function renderProduct(event){
 
     h1.innerText  = respond.name
     p.innerText = respond.description
-    pCost.innerText = `Cost: ${respond.cost}`
+    p.setAttribute('class', "tab-content")
+    pCost.innerText = `Price: $${respond.cost}`
     pOrigin.innerText = `Origin: ${respond.origin}`
-    pRating.innerText = `Overage rating: ${respond.average_rating}`
+
+    if (respond.average_rating === null){
+      pRating.innerText = `Average rating: ${0}`
+    }
+    else {
+      pRating.innerText = `Average rating: ${respond.average_rating}`
+    }
+
+    pRating.setAttribute('id', 'average_rating')
 
     img.setAttribute('src', respond.image)
     img.setAttribute('height', '500')
@@ -87,16 +99,19 @@ function renderProduct(event){
 
     form.setAttribute('id', respond.id)
     form.addEventListener('submit',  event => {submitReview(event)})
+    form.setAttribute('class', 'input-group input-group-sm mb-3')
 
     reviewTextLabel.setAttribute('name', 'review')
     reviewTextLabel.innerText = 'Review'
     reviewText.setAttribute('name', 'review')
+    reviewText.setAttribute('class', 'input-group-text')
 
     reviewAuthor.setAttribute('name', 'author')
     reviewAuthorLabel.innerText = 'Author'
     reviewAuthorLabel.setAttribute('name', 'author')
 
     reviewSubmit.setAttribute('type', 'submit')
+    reviewSubmit.setAttribute('class', 'btn btn-outline-secondary')
 
     retingSelectLabel.setAttribute('name', 'rating')
     retingSelectLabel.innerText = 'Rating'
@@ -119,11 +134,11 @@ function renderProduct(event){
       let reviewLi = document.createElement('li')
       let reviewText = document.createElement('p')
       let reviewAuthor = document.createElement('p')
-      let deleteButton = document.createElement('dutton')
+      let deleteButton = document.createElement('button')
 
       reviewText.innerText = review.text
       reviewAuthor.innerText = review.author
-      deleteButton.innerText = 'X'
+      deleteButton.innerText = 'Delete'
       deleteButton.setAttribute('id', review.id)
       deleteButton.addEventListener('click', event => {deleteReview(event)})
 
@@ -131,7 +146,7 @@ function renderProduct(event){
       reviewsUl.append(reviewLi)
     })
 
-    productDiv.append(h1, p, img, pCost, pOrigin, pRating, form, reviewsUl)
+      productDiv.append(h1, p, img, pCost, pOrigin, pRating, form, reviewsUl)
   })
 }
 
@@ -161,23 +176,24 @@ function submitReview(event){
   .then(respond => {
     let productDiv = document.querySelector('#display-product')
     let reviewsUl = productDiv.querySelector('#reviews-list')
+
     let newReviewLi = document.createElement('li')
     let newReviewText = document.createElement('p')
     let newReviewAuthor = document.createElement('p')
-    let deleteButton = document.createElement('dutton')
+    let deleteButton = document.createElement('button')
 
     newReviewText.innerText = respond.text
     newReviewAuthor.innerText = respond.author
 
-    deleteButton.innerText = 'X'
+    deleteButton.innerText = 'Delete'
     deleteButton.setAttribute('id', respond.id)
     deleteButton.addEventListener('click', event => {deleteReview(event)})
 
     newReviewLi.append(newReviewText, newReviewAuthor, deleteButton)
     reviewsUl.append(newReviewLi)
     productDiv.append(reviewsUl)
-  })
 
+  })
 }
 
 function addNewProduct(respond){
@@ -250,8 +266,6 @@ function addNewProduct(respond){
           origin: e.target.origin.value,
           cost: e.target.cost.value,
           category_id: e.target.selectCategory.selectedIndex + 1
-
-
         })
       })
       debugger

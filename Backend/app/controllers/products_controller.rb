@@ -7,27 +7,29 @@ class ProductsController < ApplicationController
 
     def show
         product = Product.find(params[:id])
+        product.averageRating
         render json: product
     end
 
     def update
         product = Product.find(params[:id])
+        product.averageRating
         product.update(product_average)
         render json: product
     end
 
     def create
         product = Product.create(product_params)
-        render json: product  
-    end 
+        render json: product
+    end
 
     private
 
     def product_average
         params.require(:product).permit(:average_rating)
-    end 
+    end
 
     def product_params
         params.require(:product).permit(:name, :description, :origin, :image, :cost, :category_id)
-    end 
+    end
 end
