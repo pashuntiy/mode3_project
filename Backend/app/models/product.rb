@@ -6,7 +6,8 @@ class Product < ApplicationRecord
   def averageRating
     length = self.reviews.length
     summ = self.reviews.map {|review| review.rating}.sum
-    self.average_rating = summ.to_f/length
+    # self.average_rating = summ.to_f/length
+    self.update(average_rating: summ.to_f/length)
   end
 
 

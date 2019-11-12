@@ -144,8 +144,8 @@ function renderProduct(event){
 
       reviewLi.append(reviewText, reviewAuthor, deleteButton)
       reviewsUl.append(reviewLi)
-    })
 
+    })
       productDiv.append(h1, p, img, pCost, pOrigin, pRating, form, reviewsUl)
   })
 }
@@ -157,7 +157,7 @@ function deleteReview(event){
   let button = document.getElementById(event.target.id)
   let pAverageRating = productDiv.querySelector('#average_rating')
   // pAverageRating.innerText =
-  debugger
+  // debugger
   button.parentElement.remove()
 }
 
@@ -196,18 +196,35 @@ function submitReview(event){
     newReviewLi.append(newReviewText, newReviewAuthor, deleteButton)
     reviewsUl.append(newReviewLi)
     productDiv.append(reviewsUl)
-
-    let lengthUl = reviewsUl.childElementCount
-    let pAverageRating = productDiv.querySelector('#average_rating')
-    pAverageRating.innerText = pAverageRating.innerText.replace(/\D/g,'')
-    let newAverageRating = (respond.rating / lengthUl) + parseFloat(pAverageRating.innerText)
-    pAverageRating.innerText = `Average rating: ${newAverageRating}`
   })
+
+  fetch(`http://localhost:3000/products/${event.target.id}`)
+    .then(r => r.json())
+    .then(resp => {
+      let pAverageRating = productDiv.querySelector('#average_rating')
+      let averageRating = event.target['rating'].value
+
+      if (resp.reviews.length === 0) {
+        pAverageRating.innerText = `Average rating: ${averageRating}`
+      }
+      else {
+        let length = resp.reviews.length
+        let summ = 0
+        resp.reviews.forEach(review => {
+          summ = summ + review.rating
+        })
+        averageRating = summ/length
+        pAverageRating.innerText = `Average rating: ${averageRating}`
+      }
+
+    })
 }
 
 function addNewProduct(respond){
 
+
   newProductBTN.addEventListener("click", () => {
+
     let newProductFORM = document.createElement("form")
     // name
     let nameLabel = document.createElement("label")
@@ -255,10 +272,12 @@ function addNewProduct(respond){
     submitInput.value = "ADD TO THE BLACK MARKET"
     submitInput.type = "submit"
 
-    newProductBTN.remove()
+
 
     newProductFORM.append(nameLabel, nameInput, imageLabel, imageInput, descLabel, descInput, originLabel, originInput, costLabel, costInput, categoryLabel, categorySelect, submitInput)
     addProductDIV.append(newProductFORM)
+
+
 
     newProductFORM.addEventListener("submit", (e) => {
       // debugger
