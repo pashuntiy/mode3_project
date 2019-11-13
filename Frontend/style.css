@@ -9,7 +9,6 @@ li {
 }
 
 #display-product{
-
 }
 
 /* The Modal (background) */
@@ -55,10 +54,16 @@ li {
   width: 18%;
 }
 
-#product-form {
-  margin: auto;
-  
+#footer {
+  background-color: cornflowerblue;
+  height: 100px;
+  margin-top: 10px;
+  /* padding-bottom: 5%; */
+
 }
-#welcome {
-  font-family: "Lucida Console";
+
+#footer-credits {
+  margin-top: 40px;
 }
+
+
