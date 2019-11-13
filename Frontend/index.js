@@ -163,19 +163,8 @@ function buyProduct(event, name) {
     addProductDIV.removeChild(addProductDIV.firstChild)
   }
   h1 = document.createElement('h1')
-  h1.innerText = `You just bought ${name}!`
+  h1.innerText = `You just bought \n ${name}!`
   addProductDIV.append(h1)
-}
-
-async function deleteReview(event){
-  await fetch(`http://localhost:3000/reviews/${event.target.id}`, {
-    method: 'DELETE'
-  })
-  let button = document.getElementById(event.target.id)
-  let pAverageRating = productDiv.querySelector('#average_rating')
-  // debugger
-  button.parentElement.remove()
-  parsAverageRating(event.target.dataset.id)
 }
 
 async function submitReview(event){
@@ -208,13 +197,24 @@ async function submitReview(event){
 
     deleteButton.innerText = 'Delete'
     deleteButton.setAttribute('id', respond.id)
+    deleteButton.setAttribute('data-id', event.target.id)
     deleteButton.addEventListener('click', event => {deleteReview(event)})
 
     newReviewLi.append(newReviewText, newReviewAuthor, deleteButton)
     reviewsUl.append(newReviewLi)
     productDiv.append(reviewsUl)
   })
-  parsAverageRating(event.target.id)
+   parsAverageRating(event.target.id)
+}
+
+async function deleteReview(event){
+  await fetch(`http://localhost:3000/reviews/${event.target.id}`, {
+    method: 'DELETE'
+  })
+  let button = document.getElementById(event.target.id)
+  let pAverageRating = productDiv.querySelector('#average_rating')
+  button.parentElement.remove()
+  parsAverageRating(event.target.dataset.id)
 }
 
 function parsAverageRating(id){
@@ -222,8 +222,7 @@ function parsAverageRating(id){
     .then(r => r.json())
     .then(resp => {
       let pAverageRating = productDiv.querySelector('#average_rating')
-
-      if (resp.status === 404) {
+      if (resp.average_rating === null) {
         pAverageRating.innerText = `Average rating: ${0}`
       }
       else {
