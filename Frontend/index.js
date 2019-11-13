@@ -4,6 +4,7 @@ let productDiv = document.querySelector('#display-product')
 let newProductBTN = document.getElementById("new-product")
 let addProductDIV = document.getElementById("add-product")
 
+
 fetch('http://localhost:3000/categories')
 .then(r => r.json())
 .then(respond => {
@@ -47,7 +48,6 @@ function renderProduct(event){
   fetch(`http://localhost:3000/products/${event.target.dataset.id}`)
   .then(r => r.json())
   .then(respond => {
-
     while (productDiv.firstChild){
       productDiv.removeChild(productDiv.firstChild)
     }
@@ -75,6 +75,12 @@ function renderProduct(event){
     let optionThree = document.createElement('option')
     let optionFour = document.createElement('option')
     let optionFive = document.createElement('option')
+
+    let buyButton = document.createElement('button')
+    buyButton.innerText = 'Buy'
+    buyButton.setAttribute('class', 'btn btn-dark')
+    buyButton.addEventListener('click', event =>{buyProduct(event, respond.name)})
+
 
     h1.innerText  = respond.name
     p.innerText = respond.description
@@ -140,30 +146,41 @@ function renderProduct(event){
       reviewAuthor.innerText = review.author
       deleteButton.innerText = 'Delete'
       deleteButton.setAttribute('id', review.id)
+      deleteButton.setAttribute('data-id', event.target.dataset.id)
       deleteButton.addEventListener('click', event => {deleteReview(event)})
 
       reviewLi.append(reviewText, reviewAuthor, deleteButton)
       reviewsUl.append(reviewLi)
 
     })
-      productDiv.append(h1, p, img, pCost, pOrigin, pRating, form, reviewsUl)
+      productDiv.append(h1, p, img, pCost, pOrigin, pRating, buyButton, form, reviewsUl)
   })
 }
 
-function deleteReview(event){
-  fetch(`http://localhost:3000/reviews/${event.target.id}`, {
+function buyProduct(event, name) {
+  modal.style.display = "block";
+  while (addProductDIV.firstChild){
+    addProductDIV.removeChild(addProductDIV.firstChild)
+  }
+  h1 = document.createElement('h1')
+  h1.innerText = `You just bought ${name}!`
+  addProductDIV.append(h1)
+}
+
+async function deleteReview(event){
+  await fetch(`http://localhost:3000/reviews/${event.target.id}`, {
     method: 'DELETE'
   })
   let button = document.getElementById(event.target.id)
   let pAverageRating = productDiv.querySelector('#average_rating')
-  // pAverageRating.innerText =
   // debugger
   button.parentElement.remove()
+  parsAverageRating(event.target.dataset.id)
 }
 
-function submitReview(event){
+async function submitReview(event){
   event.preventDefault()
-  fetch(`http://localhost:3000/reviews/`, {
+  await fetch(`http://localhost:3000/reviews/`, {
     method: 'POST',
     headers: {
       'content-type': 'application/json'
@@ -197,31 +214,25 @@ function submitReview(event){
     reviewsUl.append(newReviewLi)
     productDiv.append(reviewsUl)
   })
+  parsAverageRating(event.target.id)
+}
 
-  fetch(`http://localhost:3000/products/${event.target.id}`)
+function parsAverageRating(id){
+  fetch(`http://localhost:3000/products/${id}`)
     .then(r => r.json())
     .then(resp => {
       let pAverageRating = productDiv.querySelector('#average_rating')
-      let averageRating = event.target['rating'].value
 
-      if (resp.reviews.length === 0) {
-        pAverageRating.innerText = `Average rating: ${averageRating}`
+      if (resp.status === 404) {
+        pAverageRating.innerText = `Average rating: ${0}`
       }
       else {
-        let length = resp.reviews.length
-        let summ = 0
-        resp.reviews.forEach(review => {
-          summ = summ + review.rating
-        })
-        averageRating = summ/length
-        pAverageRating.innerText = `Average rating: ${averageRating}`
+        pAverageRating.innerText = `Average rating: ${resp.average_rating}`
       }
-
     })
 }
 
 function addNewProduct(respond){
-
   newProductBTN.addEventListener("click", () => {
 
     addProductDIV.innerText = ""
@@ -316,27 +327,43 @@ function addNewProduct(respond){
 }
 
 // Get the modal
-var modal = document.getElementById("myModal");
+let modal = document.getElementById("myModal");
 
 // Get the button that opens the modal
-var btn = document.getElementById("new-product");
+let btn = document.getElementById("new-product");
 
 // Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
+let span = document.getElementsByClassName("close")[0];
 
 // When the user clicks on the button, open the modal
-btn.onclick = function() {
+// btn.onclick = function() {
+//   modal.style.display = "block";
+// }
+
+btn.addEventListener('click', event => {
   modal.style.display = "block";
-}
+})
+
 
 // When the user clicks on <span> (x), close the modal
-span.onclick = function() {
+// span.onclick = function() {
+//   modal.style.display = "none";
+// }
+
+span.addEventListener('click', event => {
   modal.style.display = "none";
-}
+})
+
 
 // When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
+// window.onclick = function(event) {
+//   if (event.target == modal) {
+//     modal.style.display = "none";
+//   }
+// }
+
+window.addEventListener('click', event => {
   if (event.target == modal) {
     modal.style.display = "none";
   }
-}
+})

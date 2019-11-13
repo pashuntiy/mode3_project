@@ -6,6 +6,7 @@ class CreateProducts < ActiveRecord::Migration[6.0]
       t.string :image
       t.string :origin
       t.integer :cost
+      # t.integer :ammount
       t.float :average_rating
       t.belongs_to :category, null: false, foreign_key: true
 
