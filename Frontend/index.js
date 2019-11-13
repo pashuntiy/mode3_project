@@ -226,6 +226,7 @@ function addNewProduct(respond){
 
     addProductDIV.innerText = ""
     let newProductFORM = document.createElement("form")
+    newProductFORM.id = "product-form"
     // name
     let nameLabel = document.createElement("label")
     nameLabel.innerText = "Name:"
