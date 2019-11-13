@@ -11,6 +11,8 @@ class ReviewsController < ApplicationController
 
     def create
         review = Review.create(review_params)
+        product = Product.find(review_params[:product_id])
+        product.averageRating
         render json: review
     end
 
