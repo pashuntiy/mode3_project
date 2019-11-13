@@ -13,6 +13,7 @@ class ProductsController < ApplicationController
 
     def update
         product = Product.find(params[:id])
+        # product.averageRating
         product.update(product_average)
         render json: product
     end

@@ -18,7 +18,9 @@ class ReviewsController < ApplicationController
 
     def destroy
       review = Review.find(params[:id])
+      product = review.product
       review.destroy
+      product.averageRating
     end
 
     private
