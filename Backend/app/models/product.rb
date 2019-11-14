@@ -1,4 +1,5 @@
 class Product < ApplicationRecord
+  include ActionView::Helpers::NumberHelper
   belongs_to :category
   has_many :reviews
 
