@@ -28,7 +28,7 @@ li {
 /* Modal Content/Box */
 .modal-content {
   background-color: #fefefe;
-  margin: 15% auto; /* 15% from the top and centered */
+  margin: 5% auto; /* 15% from the top and centered */
   padding: 20px;
   border: 1px solid #888;
   width: 50%; /* Could be more or less, depending on screen size */
@@ -54,20 +54,31 @@ li {
   width: 18%;
 }
 
+#front-img1 {
+  margin-left: 10%;
+
+}
+
 #footer {
   background-color: cornflowerblue;
   height: 100px;
   margin-top: 10px;
-  /* padding-bottom: 5%; */
-
 }
 
 #footer-credits {
   margin-top: 40px;
 }
 
-#welcome {
-  font-family: "Lucida Console";
+#welcome{
+  /* font-family: "Comic Sans MS", cursive, sans-serif; */
+  /* font-family: monospace, "OCR A Std"; */
+  font-family: fantasy, Chalkduster;
+  margin-left: 25% auto;
+  /* background-color: black; */
+}
+
+.jumbotron {
+  background-color: black;
 }
 
 .row1 {
@@ -77,3 +88,10 @@ li {
   margin-left: -15px;
 }
 
+#new-product{
+  margin: auto;
+  width: 30%;
+  border: 3px solid black;
+  padding: 10px;
+  margin-left: 35%
+}
