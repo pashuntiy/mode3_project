@@ -78,9 +78,13 @@ function renderProduct(event){
 
     let buyButton = document.createElement('button')
     buyButton.innerText = 'Buy'
-    buyButton.setAttribute('class', 'btn btn-dark')
+    buyButton.setAttribute('class', 'btn btn-success')
     buyButton.addEventListener('click', event =>{buyProduct(event, respond.name)})
 
+    let submitReviewButton = document.createElement('button')
+    submitReviewButton.innerText = 'Submit Review'
+    submitReviewButton.setAttribute('class', 'btn btn-dark')
+    submitReviewButton.addEventListener('click', event =>{newReview(event, respond)})
 
     h1.innerText  = respond.name
     p.innerText = respond.description
@@ -103,38 +107,39 @@ function renderProduct(event){
 
     reviewsUl.setAttribute('id', 'reviews-list')
 
-    form.setAttribute('id', respond.id)
-    form.addEventListener('submit',  event => {submitReview(event)})
-    form.setAttribute('class', 'input-group input-group-sm mb-3')
-
-    reviewTextLabel.setAttribute('name', 'review')
-    reviewTextLabel.innerText = 'Review'
-    reviewText.setAttribute('name', 'review')
-    reviewText.setAttribute('class', 'input-group-text')
-
-    reviewAuthor.setAttribute('name', 'author')
-    reviewAuthorLabel.innerText = 'Author'
-    reviewAuthorLabel.setAttribute('name', 'author')
-
-    reviewSubmit.setAttribute('type', 'submit')
-    reviewSubmit.setAttribute('class', 'btn btn-outline-secondary')
-
-    retingSelectLabel.setAttribute('name', 'rating')
-    retingSelectLabel.innerText = 'Rating'
-    retingSelect.setAttribute('name', 'rating')
-    optionOne.setAttribute('value', '1')
-    optionOne.innerText = '1'
-    optionTwo.setAttribute('value', '2')
-    optionTwo.innerText = '2'
-    optionThree.setAttribute('value', '3')
-    optionThree.innerText = '3'
-    optionFour.setAttribute('value', '4')
-    optionFour.innerText = '4'
-    optionFive.setAttribute('value', '5')
-    optionFive.innerText = '5'
-
-    retingSelect.append(optionOne, optionTwo, optionThree, optionFour, optionFive)
-    form.append(reviewTextLabel, reviewText, reviewAuthorLabel, reviewAuthor, retingSelectLabel, retingSelect, reviewSubmit)
+    // form.setAttribute('id', respond.id)
+    // form.addEventListener('submit',  event => {submitReview(event)})
+    // form.setAttribute('class', 'input-group input-group-sm mb-3')
+    //
+    // reviewTextLabel.setAttribute('name', 'review')
+    // reviewTextLabel.innerText = 'Review'
+    // reviewText.setAttribute('name', 'review')
+    // reviewText.setAttribute('class', 'input-group-text')
+    //
+    // reviewAuthor.setAttribute('name', 'author')
+    // reviewAuthorLabel.innerText = 'Author'
+    // reviewAuthorLabel.setAttribute('name', 'author')
+    //
+    // reviewSubmit.setAttribute('type', 'submit')
+    // reviewSubmit.setAttribute('class', 'btn btn-outline-secondary')
+    //
+    // retingSelectLabel.setAttribute('name', 'rating')
+    // retingSelectLabel.innerText = 'Rating'
+    // retingSelect.setAttribute('name', 'rating')
+    // optionOne.setAttribute('value', '1')
+    // optionOne.innerText = '1'
+    // optionTwo.setAttribute('value', '2')
+    // optionTwo.innerText = '2'
+    // optionThree.setAttribute('value', '3')
+    // optionThree.innerText = '3'
+    // optionFour.setAttribute('value', '4')
+    // optionFour.innerText = '4'
+    // optionFive.setAttribute('value', '5')
+    // optionFive.innerText = '5'
+    //
+    //
+    // retingSelect.append(optionOne, optionTwo, optionThree, optionFour, optionFive)
+    // form.append(reviewTextLabel, reviewText, reviewAuthorLabel, reviewAuthor, retingSelectLabel, retingSelect, reviewSubmit)
 
     respond.reviews.forEach(review => {
       let reviewLi = document.createElement('li')
@@ -147,14 +152,82 @@ function renderProduct(event){
       deleteButton.innerText = 'Delete'
       deleteButton.setAttribute('id', review.id)
       deleteButton.setAttribute('data-id', event.target.dataset.id)
+      deleteButton.setAttribute('class', 'btn btn-danger')
       deleteButton.addEventListener('click', event => {deleteReview(event)})
 
       reviewLi.append(reviewText, reviewAuthor, deleteButton)
       reviewsUl.append(reviewLi)
 
     })
-      productDiv.append(h1, p, img, pCost, pOrigin, pRating, buyButton, form, reviewsUl)
+      // productDiv.append(h1, p, img, pCost, pOrigin, pRating, buyButton, submitReviewButton, form, reviewsUl)
+      productDiv.append(h1, p, img, pCost, pOrigin, pRating, buyButton, submitReviewButton, reviewsUl)
   })
+}
+
+function newReview(event, respond){
+  modal.style.display = "block";
+
+  while (addProductDIV.firstChild){
+    addProductDIV.removeChild(addProductDIV.firstChild)
+  }
+
+  let form = document.createElement('form')
+  let reviewAuthorLabel = document.createElement('label')
+  let reviewText = document.createElement('textarea')
+  let reviewTextLabel = document.createElement('label')
+  let reviewAuthor = document.createElement('input')
+
+  let reviewSubmit = document.createElement('input')
+
+  let retingSelectLabel = document.createElement('label')
+  let retingSelect = document.createElement('select')
+  let optionOne = document.createElement('option')
+  let optionTwo = document.createElement('option')
+  let optionThree = document.createElement('option')
+  let optionFour = document.createElement('option')
+  let optionFive = document.createElement('option')
+
+  form.setAttribute('id', respond.id)
+  form.addEventListener('submit',  event => {submitReview(event)})
+  form.addEventListener('submit', event => {
+    modal.style.display = "none";
+  })
+
+  form.setAttribute('class', 'input-group input-group-sm mb-3')
+
+  reviewTextLabel.setAttribute('name', 'review')
+  reviewTextLabel.innerText = 'Review'
+  reviewText.setAttribute('name', 'review')
+  reviewText.setAttribute('class', 'input-group-text')
+
+  reviewAuthor.setAttribute('name', 'author')
+  reviewAuthorLabel.innerText = 'Author'
+  reviewAuthorLabel.setAttribute('name', 'author')
+
+  reviewSubmit.setAttribute('type', 'submit')
+  reviewSubmit.setAttribute('class', 'btn btn-outline-secondary')
+
+  retingSelectLabel.setAttribute('name', 'rating')
+  retingSelectLabel.innerText = 'Rating'
+  retingSelect.setAttribute('name', 'rating')
+  optionOne.setAttribute('value', '1')
+  optionOne.innerText = '1'
+  optionTwo.setAttribute('value', '2')
+  optionTwo.innerText = '2'
+  optionThree.setAttribute('value', '3')
+  optionThree.innerText = '3'
+  optionFour.setAttribute('value', '4')
+  optionFour.innerText = '4'
+  optionFive.setAttribute('value', '5')
+  optionFive.innerText = '5'
+
+
+  retingSelect.append(optionOne, optionTwo, optionThree, optionFour, optionFive)
+  form.append(reviewTextLabel, reviewText, reviewAuthorLabel, reviewAuthor, retingSelectLabel, retingSelect, reviewSubmit)
+
+  addProductDIV.append(form)
+
+
 }
 
 function buyProduct(event, name) {
@@ -198,6 +271,7 @@ async function submitReview(event){
     deleteButton.innerText = 'Delete'
     deleteButton.setAttribute('id', respond.id)
     deleteButton.setAttribute('data-id', event.target.id)
+    deleteButton.setAttribute('class', 'btn btn-danger')
     deleteButton.addEventListener('click', event => {deleteReview(event)})
 
     newReviewLi.append(newReviewText, newReviewAuthor, deleteButton)
