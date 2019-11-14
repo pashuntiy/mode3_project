@@ -3,7 +3,8 @@ let productsUl = document.querySelector('#products')
 let productDiv = document.querySelector('#display-product')
 let newProductBTN = document.getElementById("new-product")
 let addProductDIV = document.getElementById("add-product")
-
+let frontImg = document.querySelector('#front-img')
+let divRow1 = document.querySelector('.row')
 
 fetch('http://localhost:3000/categories')
 .then(r => r.json())
@@ -25,6 +26,8 @@ function renderProductsList(event){
   .then(r => r.json())
   .then(respond => {
 
+    divRow1.className = "row1";
+
     while (productsUl.firstChild){
       productsUl.removeChild(productsUl.firstChild)
     }
@@ -39,6 +42,8 @@ function renderProductsList(event){
       li.setAttribute('data-id' , product.id)
       li.setAttribute('class', 'list-group-item')
       li.addEventListener('click', event => {renderProduct(event)})
+
+
       productsUl.append(li)
     })
   })
@@ -51,6 +56,8 @@ function renderProduct(event){
     while (productDiv.firstChild){
       productDiv.removeChild(productDiv.firstChild)
     }
+
+    frontImg.remove()
 
     let h1 = document.createElement('H1')
     let p = document.createElement('P')
