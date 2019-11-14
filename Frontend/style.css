@@ -66,8 +66,16 @@ li {
   margin-top: 40px;
 }
 
-#welcome {
-  font-family: "Lucida Console";
+#welcome{
+  /* font-family: "Comic Sans MS", cursive, sans-serif; */
+  /* font-family: monospace, "OCR A Std"; */
+  font-family: fantasy, Chalkduster; 
+  margin-left: 25% auto;
+  /* background-color: black; */
+}
+
+.jumbotron {
+  background-color: black;
 }
 
 #new-product{

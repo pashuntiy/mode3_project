@@ -85,7 +85,7 @@ function renderProduct(event){
     h1.innerText  = respond.name
     p.innerText = respond.description
     p.setAttribute('class', "tab-content")
-    pCost.innerText = `Price: $${respond.cost}`
+    pCost.innerText = `Price: ${respond.price}`
     pOrigin.innerText = `Origin: ${respond.origin}`
 
     if (respond.average_rating === null){
@@ -231,6 +231,7 @@ function parsAverageRating(id){
     })
 }
 
+// ADDING AND CREATING NEW PRODUCTS
 function addNewProduct(respond){
   newProductBTN.addEventListener("click", () => {
 
@@ -243,30 +244,35 @@ function addNewProduct(respond){
     let nameInput = document.createElement("input")
     nameInput.name = "name"
     nameInput.type = "text"
+    nameInput.placeholder = "Enter name..."
     // image
     let imageLabel = document.createElement("label")
     imageLabel.innerText = "Image:"
     let imageInput = document.createElement("input")
     imageInput.name = "image"
     imageInput.type = "text"
+    imageInput.placeholder = "Enter image's url..."
     // description
     let descLabel = document.createElement("label")
     descLabel.innerText = "Description:"
     let descInput = document.createElement("input")
     descInput.name = "description"
     descInput.type = "text"
+    descInput.placeholder = "Enter a description..."
     // origin
     let originLabel = document.createElement("label")
     originLabel.innerText = "Origin:"
     let originInput = document.createElement("input")
     originInput.name = "origin"
     originInput.type = "text"
+    originInput.placeholder = "Enter origin..."
     // cost
     let costLabel = document.createElement("label")
     costLabel.innerText = "Cost:"
     let costInput = document.createElement("input")
     costInput.name = "cost"
     costInput.type = "number"
+    costInput.placeholder = "Enter price..."
     // category
     let categoryLabel = document.createElement("label")
     categoryLabel.innerText = "Category:"
@@ -284,8 +290,6 @@ function addNewProduct(respond){
     submitInput.value = "ADD TO THE DEEP WEB"
     submitInput.setAttribute('class', 'btn btn-dark')
     submitInput.type = "submit"
-
-    let breakArr = Array(12).fill(document.createElement("br"))
 
     let breakLine1 = document.createElement("br")
     let breakLine2 = document.createElement("br")
@@ -305,7 +309,6 @@ function addNewProduct(respond){
     addProductDIV.append(newProductFORM)
 
     newProductFORM.addEventListener("submit", (e) => {
-      // debugger
       e.preventDefault()
       fetch(`http://localhost:3000/products`, {
         method:'POST',
@@ -327,40 +330,30 @@ function addNewProduct(respond){
 
 // Get the modal
 let modal = document.getElementById("myModal");
-
 // Get the button that opens the modal
 let btn = document.getElementById("new-product");
-
 // Get the <span> element that closes the modal
 let span = document.getElementsByClassName("close")[0];
-
 // When the user clicks on the button, open the modal
 // btn.onclick = function() {
 //   modal.style.display = "block";
 // }
-
 btn.addEventListener('click', event => {
   modal.style.display = "block";
 })
-
-
 // When the user clicks on <span> (x), close the modal
 // span.onclick = function() {
 //   modal.style.display = "none";
 // }
-
 span.addEventListener('click', event => {
   modal.style.display = "none";
 })
-
-
 // When the user clicks anywhere outside of the modal, close it
 // window.onclick = function(event) {
 //   if (event.target == modal) {
 //     modal.style.display = "none";
 //   }
 // }
-
 window.addEventListener('click', event => {
   if (event.target == modal) {
     modal.style.display = "none";
