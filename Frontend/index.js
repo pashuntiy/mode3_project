@@ -256,7 +256,7 @@ function addNewProduct(respond){
     let submitInput = document.createElement("input")
     submitInput.value = "ADD TO THE DEEP WEB"
     submitInput.type = "submit"
-         
+
     let breakLine1 = document.createElement("br")
     let breakLine2 = document.createElement("br")
     let breakLine3 = document.createElement("br")
@@ -269,7 +269,7 @@ function addNewProduct(respond){
     let breakLine10 = document.createElement("br")
     let breakLine11 = document.createElement("br")
     let breakLine12 = document.createElement("br")
-    
+
 
     newProductFORM.append(nameLabel, breakLine1, nameInput, breakLine2, imageLabel, breakLine3, imageInput, breakLine4, descLabel, breakLine5, descInput, breakLine6, originLabel, breakLine7, originInput, breakLine8, costLabel, breakLine9, costInput, breakLine10, categoryLabel, breakLine11, categorySelect, breakLine12, submitInput)
     addProductDIV.append(newProductFORM)
@@ -288,7 +288,7 @@ function addNewProduct(respond){
           description: e.target.description.value,
           origin: e.target.origin.value,
           cost: e.target.cost.value,
-          category_id: e.target.selectCategory.selectedIndex + 1 
+          category_id: e.target.selectCategory.selectedIndex + 1
         })
       })
     })
