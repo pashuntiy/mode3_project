@@ -98,3 +98,15 @@ li {
 }
 
 
+.product-show-title{
+  /* font-family:  Luminari, fantasy; */
+  font-family: "OCR A Std", monospace;
+  font-variant: small-caps;
+}
+
+.list-group-item{
+  font-family: "Andale Mono", monospace;
+  /* font-stretch: ultra-expanded; */
+  /* font-stretch: ultra-condensed; */
+  
+}
