@@ -38,6 +38,11 @@ function renderProductsList(event){
       addProductDIV.removeChild(addProductDIV.firstChild)
     }
 
+    let iframe = document.createElement('iframe')
+    iframe.setAttribute('style', 'width:0;height:0;border:0; border:none;')
+    iframe.setAttribute('allow', 'autoplay')
+    iframe.setAttribute('src', 'icq.mp3')
+
     respond.products.forEach(product => {
       let li = document.createElement('li')
       li.innerText = product.name
@@ -45,8 +50,7 @@ function renderProductsList(event){
       li.setAttribute('class', 'list-group-item')
       li.addEventListener('click', event => {renderProduct(event)})
 
-
-      productsUl.append(li)
+      productsUl.append(li, iframe)
     })
   })
 }
@@ -60,6 +64,10 @@ function renderProduct(event){
     }
 
     frontImg.remove()
+    let iframe = document.createElement('iframe')
+    iframe.setAttribute('style', 'width:0;height:0;border:0; border:none;')
+    iframe.setAttribute('allow', 'autoplay')
+    iframe.setAttribute('src', 'click-sound.mp3')
 
     let h1 = document.createElement('H1')
     let p = document.createElement('P')
@@ -169,7 +177,7 @@ function renderProduct(event){
 
     })
       // productDiv.append(h1, p, img, pCost, pOrigin, pRating, buyButton, submitReviewButton, form, reviewsUl)
-      productDiv.append(h1, p, img, pCost, pOrigin, pRating, buyButton, submitReviewButton, reviewsUl)
+      productDiv.append(h1, p, img, pCost, pOrigin, pRating, buyButton, submitReviewButton, reviewsUl, iframe)
   })
 }
 
@@ -199,7 +207,7 @@ function newReview(event, respond){
   form.setAttribute('id', respond.id)
   form.addEventListener('submit',  event => {submitReview(event)})
   form.addEventListener('submit', event => {
-    modal.style.display = "none";
+  modal.style.display = "none";
   })
 
   form.setAttribute('class', 'input-group input-group-sm mb-3')
@@ -230,13 +238,9 @@ function newReview(event, respond){
   optionFive.setAttribute('value', '5')
   optionFive.innerText = '5'
 
-
   retingSelect.append(optionOne, optionTwo, optionThree, optionFour, optionFive)
   form.append(reviewTextLabel, reviewText, reviewAuthorLabel, reviewAuthor, retingSelectLabel, retingSelect, reviewSubmit)
-
   addProductDIV.append(form)
-
-
 }
 
 function buyProduct(event, name) {
@@ -244,13 +248,21 @@ function buyProduct(event, name) {
   while (addProductDIV.firstChild){
     addProductDIV.removeChild(addProductDIV.firstChild)
   }
+
+  let iframe = document.createElement('iframe')
+  iframe.setAttribute('style', 'width:0;height:0;border:0; border:none;')
+  iframe.setAttribute('allow', 'autoplay')
+  iframe.setAttribute('src', 'Cash Register Cha Ching-SoundBible.com-184076484.mp3')
+
   h1 = document.createElement('h1')
   h1.innerText = `You just bought \n ${name}!`
-  addProductDIV.append(h1)
+
+  addProductDIV.append(h1, iframe)
 }
 
 async function submitReview(event){
   event.preventDefault()
+
   await fetch(`http://localhost:3000/reviews/`, {
     method: 'POST',
     headers: {
