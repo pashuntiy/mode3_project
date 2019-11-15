@@ -17,11 +17,11 @@ fetch('http://localhost:3000/categories')
     li.addEventListener('click', event => {renderProductsList(event)})
     categoriesUl.append(li)
   })
-
   addNewProduct(respond)
 })
 
 function renderProductsList(event){
+
   fetch(`http://localhost:3000/categories/${event.target.dataset.id}`)
   .then(r => r.json())
   .then(respond => {
