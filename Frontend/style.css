@@ -63,6 +63,7 @@ li {
   background-color: cornflowerblue;
   height: 100px;
   margin-top: 10px;
+  font-family: cursive, "Apple Chancery";
 }
 
 #footer-credits {
@@ -95,3 +96,5 @@ li {
   padding: 10px;
   margin-left: 35%
 }
+
+

@@ -241,6 +241,7 @@ function newReview(event, respond){
 
 function buyProduct(event, name) {
   modal.style.display = "block";
+  // modal.width = 60%;
   while (addProductDIV.firstChild){
     addProductDIV.removeChild(addProductDIV.firstChild)
   }
