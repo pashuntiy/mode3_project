@@ -104,6 +104,7 @@ function renderProduct(event){
     submitReviewButton.addEventListener('click', event =>{newReview(event, respond)})
 
     h1.innerText  = respond.name
+    h1.className = "product-show-title"
     p.innerText = respond.description
     p.setAttribute('class', "tab-content")
     pCost.innerText = `Price: ${respond.price}`
@@ -420,6 +421,13 @@ function addNewProduct(respond){
           category_id: e.target.selectCategory.selectedIndex + 1
         })
       })
+      .then(r => r.json())
+      .then(response => {
+          let event = {target: {dataset: {id: response.category_id}}}
+          renderProductsList(event)
+          
+      })
+      modal.style.display = "none"
     })
  })
 }

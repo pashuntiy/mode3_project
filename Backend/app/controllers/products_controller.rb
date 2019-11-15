@@ -7,20 +7,25 @@ class ProductsController < ApplicationController
 
     def show
         product = Product.find(params[:id])
-        # product.averageRating
         render json: product
     end
 
     def update
         product = Product.find(params[:id])
-        # product.averageRating
         product.update(product_average)
         render json: product
     end
 
     def create
         product = Product.create(product_params)
-        render json: product
+
+        if product.valid?
+            render json: product
+        else
+            render json: {
+                error_message: "Fill it out correctly!"
+            }
+        end 
     end
 
     private
